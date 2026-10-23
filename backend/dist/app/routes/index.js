@@ -1,78 +1,87 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const auth_routes_1 = require("../modules/auth/auth.routes");
-// import { categoryRouter } from "../modules/category/category.routes";
-const upload_routes_1 = require("../modules/upload/upload.routes");
 const general_settings_routes_1 = require("../modules/general-settings/general-settings.routes");
-const project_routes_1 = require("../modules/project/project.routes");
-const task_routes_1 = require("../modules/task/task.routes");
-const event_routes_1 = require("../modules/event/event.routes");
-const note_routes_1 = require("../modules/note/note.routes");
-const team_member_routes_1 = require("../modules/team-member/team-member.routes");
-const project_credential_routes_1 = require("../modules/project-credential/project-credential.routes");
-const role_routes_1 = require("../modules/role/role.routes");
-const collection_routes_1 = require("../modules/collection/collection.routes");
-const invoice_routes_1 = require("../modules/invoice/invoice.routes");
-const dashboard_routes_1 = require("../modules/dashboard/dashboard.routes");
+const homeBanner_route_1 = require("../modules/homeBanner/homeBanner.route");
+const about_route_1 = require("../modules/aboutUs/about.route");
+const counter_route_1 = require("../modules/counter/counter.route");
+const faq_route_1 = require("../modules/faq/faq.route");
+const privacypolicy_route_1 = require("../modules/privacypolicy/privacypolicy.route");
+const terms_route_1 = require("../modules/terms/terms.route");
+const contacts_route_1 = require("../modules/contacts/contacts.route");
+const product_router_1 = require("../modules/products/product.router");
+const seoPages_route_1 = require("../modules/seo-pages/seoPages.route");
+const categories_route_1 = require("../modules/categories/categories.route");
+const whyUs_route_1 = require("../modules/whyUs/whyUs.route");
+const howToOrders_route_1 = require("../modules/howToOrder/howToOrders.route");
+const enquiryForm_route_1 = require("../modules/enquiryForm/enquiryForm.route");
+const adminRoute_1 = require("../modules/admin/adminRoute");
 const router = (0, express_1.Router)();
 const moduleRoutes = [
-  {
-    path: "/auth",
-    route: auth_routes_1.authRouter,
-  },
-  // {
-  //   path: "/categories",
-  //   route: categoryRouter,
-  // },
-  {
-    path: "/projects",
-    route: project_routes_1.projectRouter,
-  },
-  {
-    path: "/tasks",
-    route: task_routes_1.taskRouter,
-  },
-  {
-    path: "/events",
-    route: event_routes_1.eventRouter,
-  },
-  {
-    path: "/notes",
-    route: note_routes_1.noteRouter,
-  },
-  {
-    path: "/team-members",
-    route: team_member_routes_1.teamMemberRouter,
-  },
-  {
-    path: "/project-credentials",
-    route: project_credential_routes_1.projectCredentialRouter,
-  },
-  {
-    path: "/roles",
-    route: role_routes_1.roleRouter,
-  },
-  {
-    path: "/collections",
-    route: collection_routes_1.collectionRouter,
-  },
-  {
-    path: "/invoices",
-    route: invoice_routes_1.invoiceRouter,
-  },
-  {
-    path: "/menu-category",
-    route: dashboard_routes_1.dashboardRouter,
-  },
-  {
-    path: "/general-settings",
-    route: general_settings_routes_1.generalSettingsRouter,
-  },
-  {
-    path: "/upload",
-    route: upload_routes_1.uploadRouter,
-  },
+    {
+        path: "/auth",
+        route: adminRoute_1.adminAuthRouter,
+    },
+    {
+        path: "/admin-auth",
+        route: adminRoute_1.adminAuthRouter,
+    },
+    {
+        path: "/home-banner",
+        route: homeBanner_route_1.homeBannerRouter,
+    },
+    {
+        path: "/counter",
+        route: counter_route_1.counterRouter,
+    },
+    {
+        path: "/categories",
+        route: categories_route_1.categoriesRouter,
+    },
+    {
+        path: "/products",
+        route: product_router_1.productsRouter,
+    },
+    {
+        path: "/why-choose-us",
+        route: whyUs_route_1.whyChooseUsRouter,
+    },
+    {
+        path: "/about-us",
+        route: about_route_1.aboutUsRouter,
+    },
+    {
+        path: "/enquiries-contacts",
+        route: contacts_route_1.contactRouter,
+    },
+    {
+        path: "/enquiries",
+        route: enquiryForm_route_1.enquiryRouter,
+    },
+    {
+        path: "/faq",
+        route: faq_route_1.faqRouter,
+    },
+    {
+        path: "/privacy-policy",
+        route: privacypolicy_route_1.privacyPolicyRouter,
+    },
+    {
+        path: "/terms-and-conditions",
+        route: terms_route_1.termsRouter,
+    },
+    {
+        path: "/how-to-order",
+        route: howToOrders_route_1.howToOrderRouter,
+    },
+    {
+        path: "/seo-pages",
+        route: seoPages_route_1.seoPagesRouter,
+    },
+    {
+        path: "/settings",
+        route: general_settings_routes_1.generalSettingsRouter,
+    },
 ];
 moduleRoutes.forEach((route) => router.use(route.path, route.route));
 exports.default = router;

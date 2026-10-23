@@ -49,66 +49,32 @@ exports.User = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const userSchema = new mongoose_1.Schema({
-    name: { type: String },
-    password: { type: String },
-    phone: { type: String, sparse: true }, // Removed unique - only email should be unique
-    email: { type: String, sparse: true, unique: true },
-    img: { type: String },
-    role: { type: String, enum: ['admin', 'vendor', 'user'], default: 'user' },
-    status: { type: String, enum: ['pending', 'active'], default: 'active' },
-    otp: { type: String },
-    otpExpires: { type: Date },
-    googleId: { type: String, sparse: true, unique: true },
-    appleId: { type: String, sparse: true, unique: true },
-    authProvider: { type: String, enum: ['local', 'google', 'phone', 'apple'], default: 'local' },
-    packageFeatures: {
-        type: [String],
-        default: []
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        lowercase: true,
     },
-    vendorServices: {
-        type: [String],
-        enum: ['film_trade', 'events', 'movie_watch'],
-        default: []
+    password: {
+        type: String,
+        required: true,
+        select: false,
     },
-    vendorActiveServices: {
-        type: [String],
-        enum: ['film_trade', 'events', 'movie_watch'],
-        default: []
-    },
-    vendorApplicationId: {
-        type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: 'VendorApplication'
-    },
-    // Block flag used by admin to disable vendor login and hide their content
-    isBlocked: { type: Boolean, default: false, index: true },
-    blockedAt: { type: Date },
-    blockedReason: { type: String, default: '' },
-    //   menuBookmarks: {
-    //   type: [MenuBookmarkSchema],
-    //   default: []
-    // },
 }, { timestamps: true });
-userSchema.pre('save', function (next) {
+userSchema.pre("save", function () {
     return __awaiter(this, void 0, void 0, function* () {
-        if (!this.isModified('password')) {
-            return next();
-        }
-        const salt = yield bcrypt_1.default.genSalt(10);
-        this.password = yield bcrypt_1.default.hash(this.password, salt);
-        next();
+        if (!this.isModified("password"))
+            return;
+        this.password = yield bcrypt_1.default.hash(this.password, 10);
     });
 });
 userSchema.methods.comparePassword = function (password) {
     return __awaiter(this, void 0, void 0, function* () {
+        if (!this.password)
+            return false;
         return bcrypt_1.default.compare(password, this.password);
     });
 };
-// Add method to compare OTP
-userSchema.methods.compareOtp = function (otp) {
-    return this.otp === otp && this.otpExpires && this.otpExpires > new Date();
-};
-// Add indexes
-// userSchema.index({ phone: 1 }, { unique: true, sparse: true });
-// userSchema.index({ email: 1 }, { unique: true, sparse: true });
-// userSchema.index({ googleId: 1 }, { unique: true, sparse: true });
-exports.User = mongoose_1.default.model('User', userSchema);
+exports.User = mongoose_1.default.models.User ||
+    mongoose_1.default.model("User", userSchema);

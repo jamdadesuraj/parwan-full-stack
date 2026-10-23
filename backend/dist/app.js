@@ -16,60 +16,58 @@ try {
     (0, firebase_1.initializeFirebase)();
 }
 catch (error) {
-    console.warn('⚠️ Firebase not initialized - Google auth and push notifications will not work');
+    console.warn("⚠️ Firebase not initialized - Google auth and push notifications will not work");
 }
 // parsers
 app.use(express_1.default.json());
 // CORS configuration for production
 app.use((0, cors_1.default)({
     origin: [
-        'http://localhost:3000',
-        'http://localhost:3001',
-        'https://moviemart.org',
-        'https://www.moviemart.org',
-        'https://panel.moviemart.org',
-        'http://localhost:3002'
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "http://localhost:3002",
+        "https://metarox-systems-web-mern.vercel.app",
     ],
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS', 'HEAD'],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
     allowedHeaders: [
-        'Content-Type',
-        'Authorization',
-        'X-Requested-With',
-        'Accept',
-        'Origin',
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "Accept",
+        "Origin",
         // TUS protocol headers for video uploads
-        'Tus-Resumable',
-        'Upload-Length',
-        'Upload-Metadata',
-        'Upload-Offset',
-        'Upload-Concat',
-        'Upload-Defer-Length',
-        'X-HTTP-Method-Override',
-        'X-Request-ID',
-        'X-Requested-With'
+        "Tus-Resumable",
+        "Upload-Length",
+        "Upload-Metadata",
+        "Upload-Offset",
+        "Upload-Concat",
+        "Upload-Defer-Length",
+        "X-HTTP-Method-Override",
+        "X-Request-ID",
+        "X-Requested-With",
     ],
     exposedHeaders: [
-        'Location',
-        'Upload-Offset',
-        'Upload-Length',
-        'Tus-Version',
-        'Tus-Resumable',
-        'Tus-Max-Size',
-        'Tus-Extension',
-        'Upload-Metadata',
-        'Stream-Media-Id'
+        "Location",
+        "Upload-Offset",
+        "Upload-Length",
+        "Tus-Version",
+        "Tus-Resumable",
+        "Tus-Max-Size",
+        "Tus-Extension",
+        "Upload-Metadata",
+        "Stream-Media-Id",
     ],
-    credentials: true
+    credentials: true,
 }));
 // swagger configuration
 (0, swagger_1.setupSwagger)(app);
 // application routes
-app.use('/v1/api', routes_1.default);
+app.use("/v1/api", routes_1.default);
 const entryRoute = (req, res) => {
-    const message = 'Surver is running...';
+    const message = "Surver is running...";
     res.send(message);
 };
-app.get('/', entryRoute);
+app.get("/", entryRoute);
 //Not Found
 app.use(notFound_1.default);
 app.use(globalErrorHandler_1.default);

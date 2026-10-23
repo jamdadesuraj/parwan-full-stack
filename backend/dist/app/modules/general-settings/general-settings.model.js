@@ -35,20 +35,40 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GeneralSettings = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-const GeneralSettingsSchema = new mongoose_1.Schema({
-    logo: { type: String, default: '' },
-    username: { type: String, default: '', trim: true },
-    password: { type: String, default: '', select: false },
+const localizedText = new mongoose_1.Schema({
+    en: { type: String, trim: true, default: "" },
+    ar: { type: String, trim: true, default: "" },
+}, { _id: false });
+const generalSettingsSchema = new mongoose_1.Schema({
+    logo: { type: String, trim: true },
+    favicon: { type: String, trim: true },
+    mobileNo: { type: String, trim: true },
+    alternateMobileNo: { type: String, trim: true },
+    mail: { type: String, trim: true, lowercase: true },
+    alternateEmail: { type: String, trim: true, lowercase: true },
+    address: { type: localizedText },
+    addressIframe: { type: String, trim: true },
+    workingHrs: { type: localizedText },
+    facebook: { type: String, trim: true },
+    instagram: { type: String, trim: true },
+    linkedin: { type: String, trim: true },
+    twitter: { type: String, trim: true },
+    youtube: { type: String, trim: true },
+    whatsApp: { type: String, trim: true },
+    footerDesc: { type: localizedText },
+    footerCopyrights: { type: localizedText },
 }, {
     timestamps: true,
     toJSON: {
         transform: function (doc, ret) {
-            delete ret.password;
-            if (ret.createdAt)
-                ret.createdAt = new Date(ret.createdAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-            if (ret.updatedAt)
-                ret.updatedAt = new Date(ret.updatedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+            ret.createdAt = new Date(ret.createdAt).toLocaleString("en-IN", {
+                timeZone: "Asia/Kolkata",
+            });
+            ret.updatedAt = new Date(ret.updatedAt).toLocaleString("en-IN", {
+                timeZone: "Asia/Kolkata",
+            });
+            return ret;
         },
     },
 });
-exports.GeneralSettings = mongoose_1.default.model('GeneralSettings', GeneralSettingsSchema);
+exports.GeneralSettings = mongoose_1.default.model("GeneralSettings", generalSettingsSchema);

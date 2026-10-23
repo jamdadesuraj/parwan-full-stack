@@ -15,15 +15,15 @@ const adminMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
     try {
         // Check if user exists in request (set by authMiddleware)
         if (!req.user) {
-            throw new appError_1.appError('Authentication required', 401);
+            throw new appError_1.appError("Authentication required", 401);
         }
         // Check if user is admin
-        if (req.user.role !== 'admin') {
-            throw new appError_1.appError('Admin access required. You do not have sufficient permissions.', 403);
+        if (req.user.role !== "admin") {
+            throw new appError_1.appError("Admin access required. You do not have sufficient permissions.", 403);
         }
         // Check if user is active
-        if (req.user.status !== 'active') {
-            throw new appError_1.appError('Account is not active', 403);
+        if (req.user.status !== "active") {
+            throw new appError_1.appError("Account is not active", 403);
         }
         next();
     }
@@ -31,7 +31,7 @@ const adminMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         res.status(error.statusCode || 500).json({
             success: false,
             statusCode: error.statusCode || 500,
-            message: error.message || 'Admin authorization failed'
+            message: error.message || "Admin authorization failed",
         });
     }
 });
