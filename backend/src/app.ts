@@ -26,6 +26,7 @@ app.use(
       "https://parwanroastery.com",
       "https://www.parwanroastery.com",
       "https://admin.parwanroastery.com",
+      "http://31.97.207.6:3000",
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
     allowedHeaders: [
